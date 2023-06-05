@@ -6,7 +6,6 @@ from itertools import combinations, combinations_with_replacement
 
 from integrate import hermite_gauss, hermite_gauss_2d
 
-
 class HarmonicLayer(nn.Module):
     def __init__(self, in_features, out_features, biased=True) -> None:
         super().__init__()
@@ -17,9 +16,14 @@ class HarmonicLayer(nn.Module):
         self.b = 0
         if biased:
             self.b = nn.Parameter(torch.randn(self.m))
-
-        self.act = torch.tanh
-        self.actprime = lambda x: 1 - self.act(x)**2
+    
+    @staticmethod
+    def act(x):
+        return torch.tanh(x)
+    
+    @staticmethod
+    def actprime(x):
+        return 1 - torch.tanh(x)**2
 
     def _qr_decompose(self):
         W = torch.stack([self.w[:, (i, j)] for i, j in combinations(range(self.m), r=2)])
