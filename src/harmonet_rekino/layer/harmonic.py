@@ -4,7 +4,7 @@ import torch.nn as nn
 
 from itertools import combinations, combinations_with_replacement
 
-from integrate import hermite_gauss, hermite_gauss_2d
+from harmonet_rekino.integrate import hermite_gauss, hermite_gauss_2d
 
 class HarmonicLayer(nn.Module):
     def __init__(self, in_features, out_features, biased=True) -> None:
