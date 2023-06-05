@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from layer import HarmonicLayer
+from src.harmonet_rekino.layer import HarmonicLayer
 
 class HarmoNet(nn.Module):
     def __init__(self, *dims) -> None:
