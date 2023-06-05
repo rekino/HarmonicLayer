@@ -39,14 +39,18 @@ class HarmonicLayer(nn.Module):
         return self.actprime(R_triu[0, 0]*x + b[0]) * self.actprime(R_triu[0, 1]*x + R_triu[1, 1]*y + b[1])
     
     def compute_tuning(self, deg):
-        sigma = torch.zeros(self.m, self.m)
+        device= 'cpu'
+        if self.w.is_cuda:
+            device = 'cuda'
+
+        sigma = torch.zeros(self.m, self.m).to(device)
         R_triu, R_diag = self._qr_decompose()
 
         for i, j in combinations_with_replacement(range(self.m), r=2):
             if i == j:
-                sigma[i, i] = np.sqrt(np.pi) * hermite_gauss(lambda x: self._quad(R_diag[i], self.b[i], x), deg)
+                sigma[i, i] = np.sqrt(np.pi) * hermite_gauss(lambda x: self._quad(R_diag[i], self.b[i], x), deg, device)
             else:
-                sigma[i, j] = sigma[j, i] = hermite_gauss_2d(lambda x, y: self._cube(R_triu[i], self.b[[i, j]], x, y), deg)
+                sigma[i, j] = sigma[j, i] = hermite_gauss_2d(lambda x, y: self._cube(R_triu[i], self.b[[i, j]], x, y), deg, device)
         
         return (self.w.T @ self.w) * sigma
 
