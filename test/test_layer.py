@@ -3,7 +3,7 @@ import torch
 from scipy.integrate import dblquad, quad
 import numpy as np
 
-from layer import HarmonicLayer
+from src.harmonet_rekino.layer import HarmonicLayer
 
 
 class TestLayer(ut.TestCase):

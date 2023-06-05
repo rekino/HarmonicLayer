@@ -3,12 +3,12 @@ import torch
 
 from scipy.integrate import dblquad
 
-from network import MLHP
+from src.harmonet_rekino.network import HarmoNet
 
 class TestNetwork(ut.TestCase):
 
     def test_forward(self):
-        model = MLHP(4, 3, 2)
+        model = HarmoNet(4, 3, 2)
         x = torch.randn(5, 4)
         out = model(x).detach().numpy()
 
@@ -17,7 +17,7 @@ class TestNetwork(ut.TestCase):
         self.assertEqual(out.shape[1], 2)
     
     def test_energy(self):
-        model = MLHP(2, 2, 1)
+        model = HarmoNet(2, 2, 1)
 
         e_hat = model.energy().detach().numpy()
 

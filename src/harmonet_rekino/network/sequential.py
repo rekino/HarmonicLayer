@@ -3,7 +3,7 @@ import torch.nn as nn
 
 from layer import HarmonicLayer
 
-class MLHP(nn.Module):
+class HarmoNet(nn.Module):
     def __init__(self, *dims) -> None:
         super().__init__()
 

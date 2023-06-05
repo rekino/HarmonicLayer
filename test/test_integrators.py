@@ -2,7 +2,7 @@ import unittest as ut
 from scipy.integrate import dblquad, quad
 import numpy as np
 
-from integrate import hermite_gauss, hermite_gauss_2d
+from src.harmonet_rekino.integrate import hermite_gauss, hermite_gauss_2d
 
 
 class TestIntegrator(ut.TestCase):
